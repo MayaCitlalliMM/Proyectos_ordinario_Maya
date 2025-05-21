@@ -34,7 +34,7 @@ namespace Proyectos_ordinario_Maya
             {
                 MessageBox.Show("Exportando con exito...");
                 DataAutos.DataSource = null;
-                DataAutos.DataSource = acc.MostrarAutos();
+               
             }
             else
             {
@@ -48,7 +48,7 @@ namespace Proyectos_ordinario_Maya
             {
                 MessageBox.Show("Importando...");
                 DataAutos.DataSource = null;
-                DataAutos.DataSource = acc.MostrarAutos();
+                
 
             }
             else
@@ -68,7 +68,7 @@ namespace Proyectos_ordinario_Maya
             {
                 MessageBox.Show("Actualizado con exito");
                 DataAutos.DataSource = null;
-                DataAutos.DataSource = acc.MostrarAutos();
+               
 
             }
             else
@@ -79,21 +79,18 @@ namespace Proyectos_ordinario_Maya
 
         private void btnEliminar_Click(object sender, EventArgs e)
         {
-            int id3 = Convert.ToInt32(txbID.Text);
-            int anio3 = Convert.ToInt32(txbAño.Text);
-            double precio3 = Convert.ToDouble(txbPrecio.Text);
-
-            if (acc.Eliminar(id3, txbMarca.Text, txbModelo.Text, anio3, txbColor.Text, precio3, txbEstado.Text))
+            int id = Convert.ToInt32(txbID.Text);
+            if (acc.Eliminar(id))
             {
                 MessageBox.Show("Eliminado con éxito");
-               
+                DataAutos.DataSource = null;
+                // Refrescar el DataGridView
             }
             else
             {
-                MessageBox.Show("No se pudo eliminar");
+                MessageBox.Show("No se encontró el auto con ese ID");
             }
         }
-
         private void btnAgregar_Click(object sender, EventArgs e)
         {
             int ID2 = Convert.ToInt32(txbID.Text);
@@ -104,7 +101,7 @@ namespace Proyectos_ordinario_Maya
             {
                 MessageBox.Show("Agregado con éxito");
                 DataAutos.DataSource = null;
-                DataAutos.DataSource = acc.MostrarAutos();
+                
             }
             else
             {

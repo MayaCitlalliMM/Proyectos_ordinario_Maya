@@ -16,7 +16,7 @@ namespace Proyectos_ordinario_Maya
             {
                 MailMessage mensaje = new MailMessage();
                 mensaje.From = new MailAddress("112901@alumnouninter.mx"); // Reemplaza con tu cuenta de envío
-                mensaje.To.Add("112816@alumnouninter.mx");
+                mensaje.To.Add("ecorrales@uninter.edu.mx");
                 mensaje.Subject = "Error en el sistema";
                 mensaje.Body = $"Se ha producido el siguiente error:\n\n{error}";
                 mensaje.IsBodyHtml = false;

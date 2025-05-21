@@ -55,24 +55,7 @@ namespace Proyectos_ordinario_Maya
         }
 
 
-        public bool Eliminar(int Id3, string marca3, string modelo3, int anio3, string color3, double precio3, string estado3)
-        {
-            try
-            {
-                var objetoeliminar = listaautos.FirstOrDefault(x => x.Id == Id3);
-                if (objetoeliminar != null)
-                {
-                    listaautos.Remove(objetoeliminar);
-                    return true;
-                }
-                return false;
-            }
-            catch (Exception ex)
-            {
-                correo.EnviarCorreo(ex.ToString());
-                return false;
-            }
-        }
+     
 
 
         public bool ExportarExcel()
@@ -80,7 +63,7 @@ namespace Proyectos_ordinario_Maya
             try
             {
                 var rutaEscritorio = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-                var rutaArchivo = Path.Combine(rutaEscritorio, "Autos_Importacion.xlsx");
+                var rutaArchivo = Path.Combine(rutaEscritorio, "Autos_Exportado.xlsx");
 
                 using (var workbook = new XLWorkbook())
                 {
@@ -133,10 +116,10 @@ namespace Proyectos_ordinario_Maya
 
                 using (var workbook = new XLWorkbook(filePath))
                 {
-                    var worksheet = workbook.Worksheet("Sheet1"); // nombre exacto de la hoja
+                    var worksheet = workbook.Worksheet("Sheet1");
+                    var rows = worksheet.RowsUsed().Skip(1); // Saltar encabezado
 
-                    var rows = worksheet.RowsUsed().Skip(1); // Saltar encabezados
-                    listaautos.Clear();
+                    listaautos.Clear(); // Limpia la lista antes de importar
 
                     foreach (var row in rows)
                     {
@@ -161,21 +144,7 @@ namespace Proyectos_ordinario_Maya
             }
         }
 
-
-
-        public void Eliminar(int matricula)
-        {
-            try
-            {
-
-                throw new NotImplementedException();
-            }
-            catch (Exception ex)
-            {
-                correo.EnviarCorreo(ex.ToString());
-                throw;
-            }
-        }
+        
 
         public bool Agregar(int Id2, string marca2, string modelo2, int anio2, string color2, double precio2, string estado2)
         {
@@ -183,6 +152,25 @@ namespace Proyectos_ordinario_Maya
             {
                 listaautos.Add(new Auto(Id2, marca2, modelo2, anio2, color2, precio2, estado2));
                 return true;
+            }
+            catch (Exception ex)
+            {
+                correo.EnviarCorreo(ex.ToString());
+                return false;
+            }
+        }
+
+        public bool Eliminar(int id)
+        {
+            try
+            {
+                var autoAEliminar = listaautos.FirstOrDefault(x => x.Id == id);
+                if (autoAEliminar != null)
+                {
+                    listaautos.Remove(autoAEliminar);
+                    return true;
+                }
+                return false;
             }
             catch (Exception ex)
             {
