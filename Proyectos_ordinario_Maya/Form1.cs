@@ -12,7 +12,7 @@ namespace Proyectos_ordinario_Maya
 {
     public partial class Form1 : Form
     {
-        Acciones acciones = new Acciones();
+        Acciones acc = new Acciones();
         public Form1()
         {
             InitializeComponent();
@@ -25,7 +25,102 @@ namespace Proyectos_ordinario_Maya
 
         private void btnMostrar_Click(object sender, EventArgs e)
         {
-            DataAutos.DataSource = acciones.MostrarAutos();
+            DataAutos.DataSource = acc.MostrarAutos();
+        }
+
+        private void btnExportar_Click(object sender, EventArgs e)
+        {
+            if (acc.ExportarExcel())
+            {
+                MessageBox.Show("Exportando con exito...");
+                DataAutos.DataSource = null;
+                DataAutos.DataSource = acc.MostrarAutos();
+            }
+            else
+            {
+                MessageBox.Show("Fallo el exportado...");
+            }
+        }
+
+        private void btnImportar_Click(object sender, EventArgs e)
+        {
+            if (acc.Importar())
+            {
+                MessageBox.Show("Importando...");
+                
+            }
+            else
+            {
+                MessageBox.Show("Error...");
+            }
+        }
+
+        private void btnActualizar_Click(object sender, EventArgs e)
+        {
+            int ID = Convert.ToInt32(txbID.Text);
+            int anio = Convert.ToInt32(txbAño.Text);
+            double precio = Convert.ToDouble(txbPrecio.Text);
+
+
+            if (acc.Actualizar(ID, txbMarca.Text, txbModelo.Text, anio, txbColor.Text, precio, txbEstado.Text))
+            {
+                MessageBox.Show("Actualizado con exito");
+                DataAutos.DataSource = null;
+                DataAutos.DataSource = acc.MostrarAutos();
+
+            }
+            else
+            {
+                MessageBox.Show("fallo en actualizar");
+            }
+        }
+
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            int ID = Convert.ToInt32(txbID.Text);
+            int anio = Convert.ToInt32(txbAño.Text);
+            double precio = Convert.ToDouble(txbPrecio.Text);
+
+            if (acc.Eliminar(ID, txbMarca.Text, txbModelo.Text, anio, txbColor.Text, precio, txbEstado.Text))
+            {
+                MessageBox.Show("Eliminado con éxito");
+               
+            }
+            else
+            {
+                MessageBox.Show("No se pudo eliminar");
+            }
+        }
+
+        private void btnAgregar_Click(object sender, EventArgs e)
+        {
+            int ID = Convert.ToInt32(txbID.Text);
+            int anio = Convert.ToInt32(txbAño.Text);
+            double precio = Convert.ToDouble(txbPrecio.Text);
+
+            if (acc.Agregar(ID, txbMarca.Text, txbModelo.Text, anio, txbColor.Text, precio, txbEstado.Text))
+            {
+                MessageBox.Show("Agregado con éxito");
+                DataAutos.DataSource = null;
+                DataAutos.DataSource = acc.MostrarAutos();
+            }
+            else
+            {
+                MessageBox.Show("No se pudo eliminar");
+            }
+        }
+
+        private void btnLimpiar_Click(object sender, EventArgs e)
+        {
+
+            txbID.Text = "";
+            txbMarca.Text = "";
+            txbModelo.Text = "";
+            txbAño.Text = "";
+            txbColor.Text = "";
+            txbPrecio.Text = "";
+            txbEstado.Text = "";
+
         }
     }
 }

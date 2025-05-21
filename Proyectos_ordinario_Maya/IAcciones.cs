@@ -9,10 +9,13 @@ namespace Proyectos_ordinario_Maya
     internal interface IAcciones
     {
         List<Auto> MostrarAutos();
-        void Agregar(int matricula, string nombre, int edad);
-        void Eliminar(int matricula);
-        void Actualizar(int matricula, string nombre, int edad);
-        void ExportaraExcel();
-        void Importar();
+        bool Agregar(int Id, string marca2, string modelo2, int anio2, string color2, double precio2, string estado2);
+        bool Actualizar(int Id, string marca2, string modelo2, int anio2, string color2, double precio2, string estado2);
+
+        bool Eliminar(int Id, string marca2, string modelo2, int anio2, string color2, double precio2, string estado2);
+
+        bool ExportarExcel();
+
+        bool Importar();
     }
 }

@@ -1,4 +1,6 @@
 ﻿using ClosedXML.Excel;
+using DocumentFormat.OpenXml.Office2010.Excel;
+using DocumentFormat.OpenXml.Wordprocessing;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -31,7 +33,7 @@ namespace Proyectos_ordinario_Maya
             }
         }
 
-        public void Actualizar(int Id1, string marca, string modelo, int anio, string color, double precio, string estado)
+        public bool Actualizar(int Id1, string marca, string modelo, int anio, string color, double precio, string estado)
         {
             try
             {
@@ -40,30 +42,38 @@ namespace Proyectos_ordinario_Maya
                 if (objetliminar != null)
                 {
                     listaautos.Remove(objetliminar);
-                    listaautos.Add(new Auto(a.Id = Id1, a.Marca = marca, a.Modelo = modelo, a.Anio = anio, a.Color = color, a.Precio = precio, a.Estado = estado));
+                    listaautos.Add(new Auto(Id1, marca, modelo, anio, color, precio, estado));
+                    return true;
                 }
+                return false;
             }
             catch (Exception ex)
             {
                 correo.EnviarCorreo(ex.ToString());
-                throw;
+                return false;
             }
         }
 
-        public void Eliminar(int Id, string marca2, string modelo2, int anio2, string color2, double precio2, string estado2)
+
+        public bool Eliminar(int Id, string marca2, string modelo2, int anio2, string color2, double precio2, string estado2)
         {
             try
             {
                 var objetoeliminar = listaautos.FirstOrDefault(x => x.Id == Id);
                 if (objetoeliminar != null)
+                {
                     listaautos.Remove(objetoeliminar);
+                    return true;
+                }
+                return false;
             }
             catch (Exception ex)
             {
                 correo.EnviarCorreo(ex.ToString());
-                throw;
+                return false;
             }
         }
+
 
         public bool ExportarExcel()
         {
@@ -109,13 +119,12 @@ namespace Proyectos_ordinario_Maya
                 return false;
             }
         }
-
         public bool Importar()
         {
             try
             {
-                var desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-                var filePath = Path.Combine(desktopPath, "Autos.xlsx"); // Usa "Autos.xlsx" si estás trabajando con autos
+                var downloadsPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), "Downloads");
+                var filePath = Path.Combine(downloadsPath, "Autos_Importacion.xlsx");
 
                 if (!File.Exists(filePath))
                 {
@@ -124,28 +133,20 @@ namespace Proyectos_ordinario_Maya
 
                 using (var workbook = new XLWorkbook(filePath))
                 {
-                    var worksheet = workbook.Worksheet("Autos"); // Asegúrate de que la hoja se llame "Autos"
-                    var rows = worksheet.RowsUsed().Skip(1); // Saltar encabezados
+                    var worksheet = workbook.Worksheet("Autos"); // nombre exacto de la hoja
 
-                    listaautos.Clear(); // Limpiar lista antes de importar
+                    var rows = worksheet.RowsUsed().Skip(1); // Saltar encabezados
+                    listaautos.Clear();
 
                     foreach (var row in rows)
                     {
-                        int id = 0;
-                        int.TryParse(row.Cell(1).Value.ToString(), out id);
-
-                        string marca = row.Cell(2).Value.ToString();
-                        string modelo = row.Cell(3).Value.ToString();
-
-                        int anio = 0;
-                        int.TryParse(row.Cell(4).Value.ToString(), out anio);
-
-                        string color = row.Cell(5).Value.ToString();
-
-                        double precio = 0;
-                        double.TryParse(row.Cell(6).Value.ToString(), out precio);
-
-                        string estado = row.Cell(7).Value.ToString();
+                        int id = int.Parse(row.Cell(1).GetValue<string>());
+                        string marca = row.Cell(2).GetValue<string>();
+                        string modelo = row.Cell(3).GetValue<string>();
+                        int anio = int.Parse(row.Cell(4).GetValue<string>());
+                        string color = row.Cell(5).GetValue<string>();
+                        double precio = double.Parse(row.Cell(6).GetValue<string>());
+                        string estado = row.Cell(7).GetValue<string>();
 
                         listaautos.Add(new Auto(id, marca, modelo, anio, color, precio, estado));
                     }
@@ -159,6 +160,7 @@ namespace Proyectos_ordinario_Maya
                 return false;
             }
         }
+
 
 
         public void Eliminar(int matricula)
@@ -175,48 +177,19 @@ namespace Proyectos_ordinario_Maya
             }
         }
 
-        public void ExportaraExcel()
+        public bool Agregar(int Id, string marca2, string modelo2, int anio2, string color2, double precio2, string estado2)
         {
             try
             {
-                throw new NotImplementedException();
+                listaautos.Add(new Auto(Id, marca2, modelo2, anio2, color2, precio2, estado2));
+                return true;
             }
             catch (Exception ex)
             {
                 correo.EnviarCorreo(ex.ToString());
-                throw;
+                return false;
             }
         }
 
-        public void Agregar(int matricula, string nombre, int edad)
-        {
-            try
-            {
-                throw new NotImplementedException();
-            }
-            catch (Exception ex)
-            {
-                correo.EnviarCorreo(ex.ToString());
-                throw;
-            }
-        }
-
-        public void Actualizar(int matricula, string nombre, int edad)
-        {
-            try
-            {
-                throw new NotImplementedException();
-            }
-            catch (Exception ex)
-            {
-                correo.EnviarCorreo(ex.ToString());
-                throw;
-            }
-        }
-
-        void IAcciones.Importar()
-        {
-            throw new NotImplementedException();
-        }
     }
 }
