@@ -47,7 +47,9 @@ namespace Proyectos_ordinario_Maya
             if (acc.Importar())
             {
                 MessageBox.Show("Importando...");
-                
+                DataAutos.DataSource = null;
+                DataAutos.DataSource = acc.MostrarAutos();
+
             }
             else
             {

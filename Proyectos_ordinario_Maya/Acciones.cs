@@ -80,11 +80,11 @@ namespace Proyectos_ordinario_Maya
             try
             {
                 var rutaEscritorio = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-                var rutaArchivo = Path.Combine(rutaEscritorio, "Autos.xlsx");
+                var rutaArchivo = Path.Combine(rutaEscritorio, "Autos_Importacion.xlsx");
 
                 using (var workbook = new XLWorkbook())
                 {
-                    var worksheet = workbook.Worksheets.Add("Autos");
+                    var worksheet = workbook.Worksheets.Add("Sheet1");
 
                     // Encabezados
                     worksheet.Cell(1, 1).Value = "ID";
@@ -133,22 +133,22 @@ namespace Proyectos_ordinario_Maya
 
                 using (var workbook = new XLWorkbook(filePath))
                 {
-                    var worksheet = workbook.Worksheet("Autos"); // nombre exacto de la hoja
+                    var worksheet = workbook.Worksheet("Sheet1"); // nombre exacto de la hoja
 
                     var rows = worksheet.RowsUsed().Skip(1); // Saltar encabezados
                     listaautos.Clear();
 
                     foreach (var row in rows)
                     {
-                        int id4 = int.Parse(row.Cell(1).GetValue<string>());
-                        string marca4 = row.Cell(2).GetValue<string>();
-                        string modelo4 = row.Cell(3).GetValue<string>();
-                        int anio4 = int.Parse(row.Cell(4).GetValue<string>());
-                        string color4 = row.Cell(5).GetValue<string>();
-                        double precio4 = double.Parse(row.Cell(6).GetValue<string>());
-                        string estado4 = row.Cell(7).GetValue<string>();
+                        int id = int.Parse(row.Cell(1).GetValue<string>());
+                        string marca = row.Cell(2).GetValue<string>();
+                        string modelo = row.Cell(3).GetValue<string>();
+                        int anio = int.Parse(row.Cell(4).GetValue<string>());
+                        string color = row.Cell(5).GetValue<string>();
+                        double precio = double.Parse(row.Cell(6).GetValue<string>());
+                        string estado = row.Cell(7).GetValue<string>();
 
-                        listaautos.Add(new Auto(id4, marca4, modelo4, anio4, color4, precio4, estado4));
+                        listaautos.Add(new Auto(id, marca, modelo, anio, color, precio, estado));
                     }
                 }
 
