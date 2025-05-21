@@ -77,11 +77,11 @@ namespace Proyectos_ordinario_Maya
 
         private void btnEliminar_Click(object sender, EventArgs e)
         {
-            int ID = Convert.ToInt32(txbID.Text);
-            int anio = Convert.ToInt32(txbAño.Text);
-            double precio = Convert.ToDouble(txbPrecio.Text);
+            int id3 = Convert.ToInt32(txbID.Text);
+            int anio3 = Convert.ToInt32(txbAño.Text);
+            double precio3 = Convert.ToDouble(txbPrecio.Text);
 
-            if (acc.Eliminar(ID, txbMarca.Text, txbModelo.Text, anio, txbColor.Text, precio, txbEstado.Text))
+            if (acc.Eliminar(id3, txbMarca.Text, txbModelo.Text, anio3, txbColor.Text, precio3, txbEstado.Text))
             {
                 MessageBox.Show("Eliminado con éxito");
                
@@ -94,11 +94,11 @@ namespace Proyectos_ordinario_Maya
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-            int ID = Convert.ToInt32(txbID.Text);
-            int anio = Convert.ToInt32(txbAño.Text);
-            double precio = Convert.ToDouble(txbPrecio.Text);
+            int ID2 = Convert.ToInt32(txbID.Text);
+            int anio2 = Convert.ToInt32(txbAño.Text);
+            double precio2 = Convert.ToDouble(txbPrecio.Text);
 
-            if (acc.Agregar(ID, txbMarca.Text, txbModelo.Text, anio, txbColor.Text, precio, txbEstado.Text))
+            if (acc.Agregar(ID2, txbMarca.Text, txbModelo.Text, anio2, txbColor.Text, precio2, txbEstado.Text))
             {
                 MessageBox.Show("Agregado con éxito");
                 DataAutos.DataSource = null;

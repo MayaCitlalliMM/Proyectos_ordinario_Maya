@@ -33,16 +33,16 @@ namespace Proyectos_ordinario_Maya
             }
         }
 
-        public bool Actualizar(int Id1, string marca, string modelo, int anio, string color, double precio, string estado)
+        public bool Actualizar(int Id, string marca, string modelo, int anio, string color, double precio, string estado)
         {
             try
             {
-                var objetliminar = listaautos.Find(x => x.Id == Id1);
+                var objetliminar = listaautos.Find(x => x.Id == Id);
 
                 if (objetliminar != null)
                 {
                     listaautos.Remove(objetliminar);
-                    listaautos.Add(new Auto(Id1, marca, modelo, anio, color, precio, estado));
+                    listaautos.Add(new Auto(Id, marca, modelo, anio, color, precio, estado));
                     return true;
                 }
                 return false;
@@ -55,11 +55,11 @@ namespace Proyectos_ordinario_Maya
         }
 
 
-        public bool Eliminar(int Id, string marca2, string modelo2, int anio2, string color2, double precio2, string estado2)
+        public bool Eliminar(int Id3, string marca3, string modelo3, int anio3, string color3, double precio3, string estado3)
         {
             try
             {
-                var objetoeliminar = listaautos.FirstOrDefault(x => x.Id == Id);
+                var objetoeliminar = listaautos.FirstOrDefault(x => x.Id == Id3);
                 if (objetoeliminar != null)
                 {
                     listaautos.Remove(objetoeliminar);
@@ -140,15 +140,15 @@ namespace Proyectos_ordinario_Maya
 
                     foreach (var row in rows)
                     {
-                        int id = int.Parse(row.Cell(1).GetValue<string>());
-                        string marca = row.Cell(2).GetValue<string>();
-                        string modelo = row.Cell(3).GetValue<string>();
-                        int anio = int.Parse(row.Cell(4).GetValue<string>());
-                        string color = row.Cell(5).GetValue<string>();
-                        double precio = double.Parse(row.Cell(6).GetValue<string>());
-                        string estado = row.Cell(7).GetValue<string>();
+                        int id4 = int.Parse(row.Cell(1).GetValue<string>());
+                        string marca4 = row.Cell(2).GetValue<string>();
+                        string modelo4 = row.Cell(3).GetValue<string>();
+                        int anio4 = int.Parse(row.Cell(4).GetValue<string>());
+                        string color4 = row.Cell(5).GetValue<string>();
+                        double precio4 = double.Parse(row.Cell(6).GetValue<string>());
+                        string estado4 = row.Cell(7).GetValue<string>();
 
-                        listaautos.Add(new Auto(id, marca, modelo, anio, color, precio, estado));
+                        listaautos.Add(new Auto(id4, marca4, modelo4, anio4, color4, precio4, estado4));
                     }
                 }
 
@@ -177,11 +177,11 @@ namespace Proyectos_ordinario_Maya
             }
         }
 
-        public bool Agregar(int Id, string marca2, string modelo2, int anio2, string color2, double precio2, string estado2)
+        public bool Agregar(int Id2, string marca2, string modelo2, int anio2, string color2, double precio2, string estado2)
         {
             try
             {
-                listaautos.Add(new Auto(Id, marca2, modelo2, anio2, color2, precio2, estado2));
+                listaautos.Add(new Auto(Id2, marca2, modelo2, anio2, color2, precio2, estado2));
                 return true;
             }
             catch (Exception ex)
