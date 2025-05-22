@@ -119,7 +119,7 @@ namespace Proyectos_ordinario_Maya
                     var worksheet = workbook.Worksheet("Sheet1");
                     var rows = worksheet.RowsUsed().Skip(1); // Saltar encabezado
 
-                    listaautos.Clear(); // Limpia la lista antes de importar
+                     // Limpia la lista antes de importar por si lo quieres
 
                     foreach (var row in rows)
                     {
